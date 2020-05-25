@@ -1,0 +1,14 @@
+@import "tailwindcss/base";
+
+/* extra css goes here */
+
+.link {
+  @apply mx-4 transform;
+
+  &:hover {
+    @apply scale-95;
+  }
+}
+
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
