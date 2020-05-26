@@ -10,5 +10,23 @@
   }
 }
 
+.numeric-flex {
+  @apply flex-1 text-right mx-10;
+}
+.text-flex {
+  @apply w-1/6 mx-10;
+}
+
+.form-input {
+  @apply border border-lime-600 rounded my-2 px-2 text-lime-800;
+
+  &:hover {
+     @apply border-lime-800;
+  }
+  &:focus {
+    @apply border-transparent shadow-outline;
+  }
+}
+
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";

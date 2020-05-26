@@ -11,7 +11,11 @@ function RecoveredTable() {
     {country: 'Hong Kong', recovered: 1030, percent: 96},
     {country: 'Gibraltar', recovered: 147, percent: 95},
   ]
-  const [ data, setData ] = useState(testData)
+  const [ dataInitial, setDataInitial ] = useState(testData)
+  const [ data, setData] = useState(dataInitial)
+  const [ country, setCountry ] = useState('')
+  const [ recoveredTreshold, setRecoveredTreshold ] = useState(4000)
+  const [ percentTreshold, setPercentTreshold ] = useState(15)
 
   useEffect( () => {
     fetch('https://www.worldometers.info/coronavirus/')
@@ -25,18 +29,46 @@ function RecoveredTable() {
       .then( body => {
         const scraper = new Scraper(body)
         const rows = scraper.parse()
-        setData(rows)
+        setDataInitial(rows)
       })
   }, [])
+
+  useEffect( () => {
+    let filteredData = dataInitial.filter( e => e.recovered >= recoveredTreshold && e.percent >= percentTreshold)
+    if (country) {
+      filteredData = filteredData.filter( e => e.country.toLowerCase().includes(country) )
+    }
+    setData(filteredData)
+  }, [dataInitial, country, recoveredTreshold, percentTreshold])
+
+  const setNumericField = (e) => {
+    let val = parseInt(e.target.value, 10)
+    if (isNaN(val) || val < 0) val = 0
+
+    // todo - match state setter dynamically
+    if (e.target.name === 'recovered') {
+      setRecoveredTreshold(val)
+    } else if (e.target.name === 'percent') {
+      setPercentTreshold(val)
+    }
+  }
 
   return (
     <div>
       <div className="flex">
-        <span className="flex-1">Country</span>
-        <span className="flex-1">Recovered</span>
-        <span className="flex-1">Percent</span>
+        <span className="text-flex">Country</span>
+        <span className="numeric-flex">Recovered</span>
+        <span className="numeric-flex">Percent</span>
       </div>
-      <hr/>
+      <div className="flex">
+        <input type="text" name="country" className="text-flex form-input"
+               value={country} onChange={ e => setCountry(e.target.value)}/>
+        <input type="text" name="recovered" className="numeric-flex form-input"
+               value={recoveredTreshold} onChange={ setNumericField }/>
+        <input type="text" name="percent" className="numeric-flex form-input"
+               value={percentTreshold} onChange={ setNumericField }/>
+      </div>
+      <hr className="mb-2"/>
       {data.map( (e, i) => <RecoveredRow key={i} country={e.country} recovered={e.recovered} percent={e.percent}/>)}
     </div>
   )
@@ -45,9 +77,9 @@ function RecoveredTable() {
 function RecoveredRow( {country, recovered, percent} ) {
   return (
     <div className="flex">
-      <span className="flex-1">{country}</span>
-      <span className="flex-1">{recovered}</span>
-      <span className="flex-1">{percent}</span>
+      <span className="text-flex">{country}</span>
+      <span className="numeric-flex">{recovered}</span>
+      <span className="numeric-flex">{percent}</span>
     </div>
   )
 }
