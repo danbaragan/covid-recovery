@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Scraper from './Scraper'
+
+import Scraper from '../Scraper'
 import cheerio from 'cheerio'
 window.cheerio = cheerio
 
@@ -8,17 +9,21 @@ function RecoveredTable() {
     {country: 'Anguilla', recovered: 3, percent: 100},
     {country: 'Saint Pierre Miquelon', recovered: 1, percent: 100},
     {country: 'Iceland', recovered: 1791, percent: 99},
+    {country: 'World', recovered: 10000, percent: 97},
     {country: 'Hong Kong', recovered: 1030, percent: 96},
     {country: 'Gibraltar', recovered: 147, percent: 95},
   ]
+  // todo: move this outside to control reloading from higher components
   const [ loading, setLoading ] = useState(true)
+  // todo: move initial outside so we don't hit worldometer on page change
   const [ dataInitial, setDataInitial ] = useState(testData)
   const [ data, setData] = useState(dataInitial)
   const [ country, setCountry ] = useState('')
-  const [ recoveredTreshold, setRecoveredTreshold ] = useState(4000)
-  const [ percentTreshold, setPercentTreshold ] = useState(15)
+  const [ recoveredTreshold, setRecoveredTreshold ] = useState(100)
+  const [ percentTreshold, setPercentTreshold ] = useState(95)
 
   useEffect( () => {
+    /*
     fetch('https://www.worldometers.info/coronavirus/')
       .then( (res) => {
         if (res.ok) {
@@ -33,6 +38,7 @@ function RecoveredTable() {
         setDataInitial(rows)
         setLoading(false)
       })
+      */
   }, [loading])
 
   useEffect( () => {
@@ -47,7 +53,7 @@ function RecoveredTable() {
     let val = parseInt(e.target.value, 10)
     if (isNaN(val) || val < 0) val = 0
 
-    // todo - match state setter dynamically
+    // todo: match state setter dynamically
     if (e.target.name === 'recovered') {
       setRecoveredTreshold(val)
     } else if (e.target.name === 'percent') {
@@ -94,7 +100,8 @@ function RecoveredTable() {
 function RecoveredRow( {row, toggleRow} ) {
   const {country, recovered, percent, selected} = row
   return (
-    <div className={`flex selectable-row ${ selected ? 'text-yellow-500 font-semibold' : ''}`} onClick={ toggleRow }>
+    <div className={`flex selectable-row ${ selected ? 'text-yellow-500 font-semibold' : ''} ${country === 'World' ? 'text-blue-300 font-semibold' : ''}`}
+         onClick={ toggleRow }>
       <span className="text-flex">{country}</span>
       <span className="numeric-flex">{recovered}</span>
       <span className="numeric-flex">{percent}</span>
