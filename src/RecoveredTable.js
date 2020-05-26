@@ -11,6 +11,7 @@ function RecoveredTable() {
     {country: 'Hong Kong', recovered: 1030, percent: 96},
     {country: 'Gibraltar', recovered: 147, percent: 95},
   ]
+  const [ loading, setLoading ] = useState(true)
   const [ dataInitial, setDataInitial ] = useState(testData)
   const [ data, setData] = useState(dataInitial)
   const [ country, setCountry ] = useState('')
@@ -30,6 +31,7 @@ function RecoveredTable() {
         const scraper = new Scraper(body)
         const rows = scraper.parse()
         setDataInitial(rows)
+        setLoading(false)
       })
   }, [])
 
@@ -53,30 +55,44 @@ function RecoveredTable() {
     }
   }
 
+  const toggleRow = (idx) => () => {
+    const country = data[idx].country
+    const newData = dataInitial.map( row => {
+      if (row.country === country) {
+        let newRow = {...row}
+        newRow.selected = !row.selected
+        return newRow
+      }
+      return row
+    })
+    setDataInitial(newData)
+  }
+
   return (
-    <div>
+    <div className={`${loading ? 'loading' : ''}`}>
       <div className="flex">
         <span className="text-flex">Country</span>
         <span className="numeric-flex">Recovered</span>
         <span className="numeric-flex">Percent</span>
       </div>
       <div className="flex">
-        <input type="text" name="country" className="text-flex form-input"
+        <input type="text" name="country" className={`text-flex form-input ${loading ? 'loading' : ''}`}
                value={country} onChange={ e => setCountry(e.target.value)}/>
-        <input type="text" name="recovered" className="numeric-flex form-input"
+        <input type="text" name="recovered" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
                value={recoveredTreshold} onChange={ setNumericField }/>
-        <input type="text" name="percent" className="numeric-flex form-input"
+        <input type="text" name="percent" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
                value={percentTreshold} onChange={ setNumericField }/>
       </div>
       <hr className="mb-2"/>
-      {data.map( (e, i) => <RecoveredRow key={i} country={e.country} recovered={e.recovered} percent={e.percent}/>)}
+      {data.map( (e, i) => <RecoveredRow key={i} row={e} toggleRow={toggleRow(i)}/>)}
     </div>
   )
 }
 
-function RecoveredRow( {country, recovered, percent} ) {
+function RecoveredRow( {row, toggleRow} ) {
+  const {country, recovered, percent, selected} = row
   return (
-    <div className="flex">
+    <div className={`flex selectable-row ${ selected ? 'text-yellow-500 font-semibold' : ''}`} onClick={ toggleRow }>
       <span className="text-flex">{country}</span>
       <span className="numeric-flex">{recovered}</span>
       <span className="numeric-flex">{percent}</span>

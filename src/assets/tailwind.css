@@ -10,6 +10,16 @@
   }
 }
 
+.loading {
+  cursor: wait !important;
+}
+.selectable-row {
+  cursor: copy;
+  &:hover {
+    @apply font-semibold;
+  }
+}
+
 .numeric-flex {
   @apply flex-1 text-right mx-10;
 }
