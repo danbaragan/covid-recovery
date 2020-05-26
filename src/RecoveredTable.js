@@ -33,7 +33,7 @@ function RecoveredTable() {
         setDataInitial(rows)
         setLoading(false)
       })
-  }, [])
+  }, [loading])
 
   useEffect( () => {
     let filteredData = dataInitial.filter( e => e.recovered >= recoveredTreshold && e.percent >= percentTreshold)
@@ -69,22 +69,24 @@ function RecoveredTable() {
   }
 
   return (
-    <div className={`${loading ? 'loading' : ''}`}>
-      <div className="flex">
-        <span className="text-flex">Country</span>
-        <span className="numeric-flex">Recovered</span>
-        <span className="numeric-flex">Percent</span>
+    <div className="container layout-mid">
+      <div className={`${loading ? 'loading' : ''}`}>
+        <div className="flex pt-4 font-semibold">
+          <span className="text-flex">Country</span>
+          <span className="numeric-flex">Recovered</span>
+          <span className="numeric-flex">Percent</span>
+        </div>
+        <div className="flex pb-2">
+          <input type="text" name="country" className={`text-flex form-input ${loading ? 'loading' : ''}`}
+                 value={country} onChange={ e => setCountry(e.target.value)}/>
+          <input type="text" name="recovered" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
+                 value={recoveredTreshold} onChange={ setNumericField }/>
+          <input type="text" name="percent" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
+                 value={percentTreshold} onChange={ setNumericField }/>
+        </div>
+        <hr className="mb-2"/>
+        {data.map( (e, i) => <RecoveredRow key={i} row={e} toggleRow={toggleRow(i)}/>)}
       </div>
-      <div className="flex">
-        <input type="text" name="country" className={`text-flex form-input ${loading ? 'loading' : ''}`}
-               value={country} onChange={ e => setCountry(e.target.value)}/>
-        <input type="text" name="recovered" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
-               value={recoveredTreshold} onChange={ setNumericField }/>
-        <input type="text" name="percent" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
-               value={percentTreshold} onChange={ setNumericField }/>
-      </div>
-      <hr className="mb-2"/>
-      {data.map( (e, i) => <RecoveredRow key={i} row={e} toggleRow={toggleRow(i)}/>)}
     </div>
   )
 }

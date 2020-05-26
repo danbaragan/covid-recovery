@@ -2,6 +2,13 @@
 
 /* extra css goes here */
 
+.layout-shell {
+  @apply bg-lime-800 text-gray-200 py-8;
+}
+.layout-mid {
+  @apply bg-lime-400 text-gray-200 pb-6;
+}
+
 .link {
   @apply mx-4 transform;
 
