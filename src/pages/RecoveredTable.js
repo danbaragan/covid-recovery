@@ -1,45 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import Scraper from '../Scraper'
-import cheerio from 'cheerio'
-window.cheerio = cheerio
 
-function RecoveredTable() {
-  const testData = [
-    {country: 'Anguilla', recovered: 3, percent: 100},
-    {country: 'Saint Pierre Miquelon', recovered: 1, percent: 100},
-    {country: 'Iceland', recovered: 1791, percent: 99},
-    {country: 'World', recovered: 10000, percent: 97},
-    {country: 'Hong Kong', recovered: 1030, percent: 96},
-    {country: 'Gibraltar', recovered: 147, percent: 95},
-  ]
-  // todo: move this outside to control reloading from higher components
-  const [ loading, setLoading ] = useState(true)
-  // todo: move initial outside so we don't hit worldometer on page change
-  const [ dataInitial, setDataInitial ] = useState(testData)
+function RecoveredTable({ loading, dataInitial, setDataInitial }) {
   const [ data, setData] = useState(dataInitial)
   const [ country, setCountry ] = useState('')
-  const [ recoveredTreshold, setRecoveredTreshold ] = useState(100)
-  const [ percentTreshold, setPercentTreshold ] = useState(95)
-
-  useEffect( () => {
-    /*
-    fetch('https://www.worldometers.info/coronavirus/')
-      .then( (res) => {
-        if (res.ok) {
-          return res.text()
-        } else {
-          return ''
-        }
-      })
-      .then( body => {
-        const scraper = new Scraper(body)
-        const rows = scraper.parse()
-        setDataInitial(rows)
-        setLoading(false)
-      })
-      */
-  }, [loading])
+  const [ recoveredTreshold, setRecoveredTreshold ] = useState(4000)
+  const [ percentTreshold, setPercentTreshold ] = useState(15)
 
   useEffect( () => {
     let filteredData = dataInitial.filter( e => e.recovered >= recoveredTreshold && e.percent >= percentTreshold)
