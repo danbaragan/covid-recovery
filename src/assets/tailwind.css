@@ -28,15 +28,24 @@
 }
 
 .numeric-flex {
-  @apply flex-1 text-right mx-10;
+  @apply flex-1 text-right mx-2;
+  @screen sm {
+    @apply mx-10;
+  }
 }
 .text-flex {
-  @apply w-1/6 mx-10;
+  @apply flex-1 mx-2;
+  @screen sm {
+    @apply w-1/6 mx-10;
+  }
 }
 
 .form-input {
-  @apply border border-lime-600 rounded my-2 px-2 text-lime-800;
+  @apply border border-lime-600 rounded my-2 px-2 text-lime-800 min-w-0;
 
+  @media sm {
+    @apply max-w-sm;
+  }
   &:hover {
      @apply border-lime-800;
   }

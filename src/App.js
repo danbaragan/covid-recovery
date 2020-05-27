@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+/* For the moment Helmet will issue "Using UNSAFE_componentWillMount in strict mode is not recommended" */
 import { Helmet } from 'react-helmet'
 
 import './assets/main.css'
