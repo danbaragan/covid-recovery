@@ -54,5 +54,19 @@
   }
 }
 
+.paragraph-heading {
+  @apply text-xl font-semibold my-6;
+}
+p {
+  @apply my-4 leading-relaxed;
+}
+em {
+  @apply mx-2;
+}
+
+.external-link {
+  @apply text-yellow-500 font-semibold m-2;
+}
+
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";

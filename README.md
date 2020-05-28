@@ -1,68 +1,21 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Covid Recovery
 
-## Available Scripts
+Covid19 is on almost everybody's mind right now and most of the data is pretty hard to analyze from an optimistic perspective
+This is aimed to aggregate data from worldometer/covid and sort it by a 'percent recovered' metric. (one that is missing from worldometer)
+Of course, the accuracy of the metric very much depends on how each country monitors and reports data, especially the 'Total Recovered' indicator
 
-In the project directory, you can run:
+You can view a live demo of this app on `https://pensive-easley-0f870c.netlify.app/`
 
-### `yarn start`
+This project fetches and scrapes data from [Worldometer](https://www.worldometers.info/coronavirus/)
+Was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Styled with [Tailwindcss](https://tailwindcss.com/).
+In order to resolve CORS restrictions you need a CORS oroxy. Special thanks to [Rob--W's cors anywhere](https://github.com/Rob--W/cors-anywhere)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Run locally
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+clone and `yarn install` / `npm install`
 
-### `yarn test`
+Set `REACT_APP_CORS_PROXY` to a CORS proxy. It defaults to `https://cors-anywhere.herokuapp.com` which is heavily throttled for good reasons.
+Set `REACT_APP_DATA_PATH` to a path inside your proxy. It default to full URL `https://www.worldometers.info/coronavirus` as this is how cors-anywhere works.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+`yarn start` / `npm start`
