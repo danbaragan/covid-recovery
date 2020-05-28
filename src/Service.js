@@ -10,6 +10,9 @@ const testData = [
 ]
 
 function fetchData(testing) {
+  const cors_proxy = process.env.REACT_APP_CORS_PROXY || 'https://cors-anywhere.herokuapp.com'
+  const data_path = process.env.REACT_APP_DATA_PATH || 'https://www.worldometers.info/coronavirus'
+  const url = `${cors_proxy}/${data_path}`
 
   if (testing) {
     return new Promise( (resolve) => {
@@ -17,7 +20,7 @@ function fetchData(testing) {
     })
   }
 
-  return fetch('https://www.worldometers.info/coronavirus/')
+  return fetch(url)
     .then( res => {
       if (res.ok) {
         return res.text()
