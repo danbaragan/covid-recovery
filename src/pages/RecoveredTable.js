@@ -50,7 +50,7 @@ function RecoveredTable({ loading, dataInitial, setDataInitial }) {
         </div>
         <div className="flex pb-2">
           <input type="text" name="country" className={`text-flex form-input ${loading ? 'loading' : ''}`}
-                 value={country} onChange={ e => setCountry(e.target.value)}/>
+                 value={country} onChange={ e => setCountry(e.target.value.toLowerCase())}/>
           <input type="text" name="recovered" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
                  value={recoveredTreshold} onChange={ setNumericField }/>
           <input type="text" name="percent" className={`numeric-flex form-input ${loading ? 'loading' : ''}`}
