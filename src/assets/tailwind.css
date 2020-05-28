@@ -3,10 +3,10 @@
 /* extra css goes here */
 
 .layout-shell {
-  @apply bg-lime-800 text-gray-200 py-8;
+  @apply bg-lime-800 text-gray-200 py-4;
 }
 .layout-mid {
-  @apply bg-lime-400 text-gray-200 pb-6;
+  @apply bg-lime-400 text-gray-200 pb-4;
 }
 
 .link {
