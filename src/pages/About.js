@@ -35,8 +35,8 @@ function About() {
         <h2 className="paragraph-heading">Contact</h2>
         <p>
           The source code for this web app is on
-          <a href="https://github.com/danbaragan/covid-recovery" className="external-link">github/recovery</a>
-          Since this page is scraping data from worlometer/covid html, things might break every once in a while when worlometer changes their page layout.
+          <a href="https://github.com/danbaragan/covid-recovery" className="external-link">github</a>
+          Since this page is scraping data from worlometer/covid html, things might break every once in a while when they change their page layout.
           Feel free to open an issue on github if this happens.
         </p>
         <p>You can otherwise find me on <a href="https://twitter.com/dan_baragan" className="external-link">twitter</a>
