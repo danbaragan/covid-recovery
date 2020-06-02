@@ -36,7 +36,7 @@ function App() {
         <Header/>
         <Route exact path="/"
                render={ () => <RecoveredTable
-                 loading={loading} dataInitial={dataInitial} setDataInitial={setDataInitial}/>}/>
+                 loading={loading} dataInitial={dataInitial}/>}/>
         <Route path="/about" component={About}/>
         <Footer/>
       </Router>

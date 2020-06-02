@@ -1,19 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
+import produce from 'immer'
+
+import { loadLocalStore, saveLocalStore } from '../Service'
 
 
-function RecoveredTable({ loading, dataInitial, setDataInitial }) {
+function RecoveredTable({ loading, dataInitial }) {
+  const savedRecoveredTreshold = useMemo( () => loadLocalStore('recoveredTreshold', 0), [])
+  const savedPercentTreshold = useMemo( () => loadLocalStore('percentTreshold', 0), [])
+  const savedCountries = useMemo( () => loadLocalStore('countries', []), [])
+
   const [ data, setData] = useState(dataInitial)
   const [ country, setCountry ] = useState('')
-  const [ recoveredTreshold, setRecoveredTreshold ] = useState(4000)
-  const [ percentTreshold, setPercentTreshold ] = useState(15)
+  const [ countries, setCountries ] = useState(savedCountries)
+  const [ recoveredTreshold, setRecoveredTreshold ] = useState(savedRecoveredTreshold)
+  const [ percentTreshold, setPercentTreshold ] = useState(savedPercentTreshold)
 
   useEffect( () => {
-    let filteredData = dataInitial.filter( e => e.recovered >= recoveredTreshold && e.percent >= percentTreshold)
-    if (country) {
-      filteredData = filteredData.filter( e => e.country.toLowerCase().includes(country) )
-    }
+    const filteredData = dataInitial.filter( e => {
+      return (e.recovered >= recoveredTreshold
+        && e.percent >= percentTreshold
+        && (!country || e.country.toLowerCase().includes(country))
+      )
+    })
     setData(filteredData)
-  }, [dataInitial, country, recoveredTreshold, percentTreshold])
+
+    return () => {
+      saveLocalStore('recoveredTreshold', recoveredTreshold)
+      saveLocalStore('percentTreshold', percentTreshold)
+      saveLocalStore('countries', countries)
+    }
+  }, [dataInitial, country, countries, recoveredTreshold, percentTreshold])
 
   const setNumericField = (e) => {
     let val = parseInt(e.target.value, 10)
@@ -29,15 +45,17 @@ function RecoveredTable({ loading, dataInitial, setDataInitial }) {
 
   const toggleRow = (idx) => () => {
     const country = data[idx].country
-    const newData = dataInitial.map( row => {
-      if (row.country === country) {
-        let newRow = {...row}
-        newRow.selected = !row.selected
-        return newRow
-      }
-      return row
-    })
-    setDataInitial(newData)
+    let newCountries = []
+    if (countries.includes(country)) {
+      newCountries = produce(countries, draft => {
+        draft.splice(countries.indexOf(country), 1)
+      })
+    } else {
+      newCountries = produce(countries, draft => {
+        draft.push(country)
+      })
+    }
+    setCountries(newCountries)
   }
 
   return (
@@ -57,14 +75,15 @@ function RecoveredTable({ loading, dataInitial, setDataInitial }) {
                  value={percentTreshold} onChange={ setNumericField }/>
         </div>
         <hr className="mb-2"/>
-        {data.map( (e, i) => <RecoveredRow key={i} row={e} toggleRow={toggleRow(i)}/>)}
+        {data.map( (e, i) => <RecoveredRow key={i} row={e} toggleRow={toggleRow(i)} countries={countries}/>)}
       </div>
     </div>
   )
 }
 
-function RecoveredRow( {row, toggleRow} ) {
-  const {country, recovered, percent, selected} = row
+function RecoveredRow( {row, toggleRow, countries} ) {
+  const {country, recovered, percent } = row
+  const selected = countries.includes(country)
   return (
     <div className={`flex selectable-row ${ selected ? 'text-yellow-500 font-semibold' : ''} ${country === 'World' ? 'text-blue-300 font-semibold' : ''}`}
          onClick={ toggleRow }>
