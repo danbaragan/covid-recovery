@@ -50,7 +50,7 @@
      @apply border-lime-800;
   }
   &:focus {
-    @apply border-transparent shadow-outline;
+    @apply border-transparent outline-none shadow-outline;
   }
 }
 
