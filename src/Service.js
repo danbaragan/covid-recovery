@@ -1,4 +1,5 @@
-import Scraper from './Scraper'
+import Scraper from './engine/Scraper'
+import Aggregator from "./engine/Aggregator"
 
 const testData = [
   {country: 'Anguilla', recovered: 3, percent: 100},
@@ -30,7 +31,8 @@ function fetchData(testing) {
     })
     .then( body => {
       const scraper = new Scraper(body)
-      return scraper.parse()
+      const processor = new Aggregator()
+      return processor.process(scraper.parse())
     })
 }
 
