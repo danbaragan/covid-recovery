@@ -10,7 +10,8 @@ import Footer from './layout/Footer'
 import RecoveredTable from './pages/RecoveredTable'
 import About from './pages/About'
 
-import { fetchData } from "./Service"
+import WorldometerScraper from './engine/WorldometerScraper'
+import Aggregator from "./engine/Aggregator"
 
 
 function App() {
@@ -18,9 +19,14 @@ function App() {
   const [ dataInitial, setDataInitial ] = useState([])
 
   useEffect( () => {
-    fetchData()
+    const dataSource = new WorldometerScraper()
+    // const dataSource = new HopkinsData()
+
+    dataSource.fetchData()
       .then( rows => {
-        setDataInitial(rows)
+        const aggregator = new Aggregator()
+        const aggregatedRows = aggregator.process(rows)
+        setDataInitial(aggregatedRows)
         setLoading(false)
       })
   }, [loading])

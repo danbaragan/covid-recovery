@@ -7,7 +7,11 @@ class Aggregator {
     for (let row of parsedData) {
       let { country, recovered } = row
       if (!recovered) {
-        let active = row.active || row.cases * activeRatio
+        let active = row.active
+        // if no active reported OR all not dead is considered active then apply heuristics
+        if (!row.active || row.cases === row.deaths + row.active) {
+          active = row.cases * activeRatio
+        }
         recovered = Math.trunc(row.cases - row.deaths - active)
       }
 
@@ -22,10 +26,13 @@ class Aggregator {
     let n = 0;
     for (let row of parsedData) {
       if (row.cases < 1000 && row.active < 100) continue
+      if (row.cases === row.deaths + row.active) continue
+
       totalActiveRatios += row.active / row.cases
       n += 1
     }
-    return totalActiveRatios / n
+    // active ratio of 0 if no relevant data (optimistic)
+    return n ? totalActiveRatios / n : 0
   }
 }
 
