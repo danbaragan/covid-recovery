@@ -29,13 +29,13 @@
 
 .numeric-flex {
   @apply flex-1 text-right mx-2;
-  @screen sm {
+  @screen md {
     @apply mx-10;
   }
 }
 .text-flex {
   @apply flex-1 mx-2;
-  @screen sm {
+  @screen md {
     @apply w-1/6 mx-10;
   }
 }
@@ -43,7 +43,7 @@
 .form-input {
   @apply border border-lime-600 rounded my-2 px-2 text-lime-800 min-w-0;
 
-  @media sm {
+  @screen md {
     @apply max-w-sm;
   }
   &:hover {

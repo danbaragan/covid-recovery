@@ -14,7 +14,7 @@ const testData = [
 class WorldometerScraper {
   constructor() {
     const cors_proxy = process.env.REACT_APP_CORS_PROXY || 'https://cors-anywhere.herokuapp.com'
-    const data_path = process.env.REACT_APP_DATA_PATH || 'https://www.worldometers.info/coronavirus'
+    const data_path = process.env.REACT_APP_W_DATA_PATH || 'https://www.worldometers.info/coronavirus'
     this.url = `${cors_proxy}/${data_path}`
 
     this.lookFor = {

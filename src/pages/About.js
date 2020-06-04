@@ -7,16 +7,16 @@ function About() {
     <>
       <Helmet>
         <title>Covid Recovery Tracker: About</title>
-        <meta name="description" content="Covid Recovery Tracker uses data from worldometer to show how close to healing we are"/>
+        <meta name="description" content="Covid Recovery Tracker uses data from Johns Hopkins / worldometer to show how close to healing we are"/>
       </Helmet>
 
       <div className="container layout-mid text-lg py-6 pb-10">
-        <h2 className="paragraph-heading">Covid Recovery Tracker uses data from worldometer to show how close to healing we are</h2>
+        <h2 className="paragraph-heading">Covid Recovery Tracker uses data from Johns Hopkins / worldometer to show how close to healing we are</h2>
         <p>
           Covid19 is on almost everybody's mind right now and most of the data is pretty hard to analyze from an optimistic perspective
-          This is aimed at aggregating data from
+          We use data from <a href="https://covid-api.com">Johns Hopkins</a> or
           <a href="https://www.worldometers.info/coronavirus" className="external-link">worldometer/covid</a>
-          and sort it by a <em>percent recovered</em> metric. This particular one is currently missing from worldometer and you you may have found out,
+          and sort it by a <em>percent recovered</em> metric. This particular one missing from other sources and you you may have found out,
           as I did, that total deaths only goes up and it is not very useful to track those unless you
           <a href="https://aatishb.com/covidtrends/" className="external-link">log scale them</a>.
         </p>
@@ -26,11 +26,11 @@ function About() {
         </p>
         <p>
           Of course, the accuracy of the metric very much depends on how each country monitors and reports data, especially the <em>Total Recovered</em> indicator.
-          A lot of countries consider what they don't know as recovered. Others don't report anything for the recovered value; in this case
-          recovered is computed as Total Cases - Total Deaths - Active Cases. Some countries don't report Active Cases; in this case an average value
-          of active cases is deduced based on the data from countries that report it. For this last case an <em>*</em> is added the country name.
-          This page is not opinionated about what and how countries report.
-          I am merely mention this as a caveat in assuming a high correlation between
+          A lot of countries consider what they don't know as already recovered. Others don't report anything for the recovered value; in this case
+          recovered is computed as Total Cases - Total Deaths - Active Cases. Some countries don't report Active Cases or consider all ever tested and positive
+          as active indefinitely; in this case an average value of active cases is estimated based on the data from countries that report it.
+          For this last case an <em>*</em> is added the country name.
+          This page is not opinionated about what and how countries report. I am merely mentioning this as a caveat in assuming a high correlation between
           these numbers and the in the field situation.
         </p>
 

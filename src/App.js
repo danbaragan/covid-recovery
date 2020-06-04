@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Route, useLocation } from 'react-router-dom'
 /* For the moment Helmet will issue "Using UNSAFE_componentWillMount in strict mode is not recommended" */
 import { Helmet } from 'react-helmet'
 
@@ -11,25 +11,53 @@ import RecoveredTable from './pages/RecoveredTable'
 import About from './pages/About'
 
 import WorldometerScraper from './engine/WorldometerScraper'
+import HopkinsData from './engine/HopkinsApi'
 import Aggregator from "./engine/Aggregator"
 
 
 function App() {
+  const location = useLocation()
   const [ loading, setLoading ] = useState(true)
-  const [ dataInitial, setDataInitial ] = useState([])
+  const [ loadedH, setLoadedH ] = useState(false)
+  const [ loadedW, setLoadedW ] = useState(false)
+  const [ current, setCurrent ] = useState('')
+  const [ dataInitialH, setDataInitialH ] = useState([])
+  const [ dataInitialW, setDataInitialW ] = useState([])
 
   useEffect( () => {
-    const dataSource = new WorldometerScraper()
-    // const dataSource = new HopkinsData()
+    const path = location.pathname
+    if (path === '/' || path === '/hopkins') {
+      setCurrent('hopkins')
+      setLoading(true)
+    } else if (path === '/worldometer') {
+      setCurrent('worldometer')
+      setLoading(true)
+    } else {
+      setCurrent('')
+    }
+  }, [location, current])
 
-    dataSource.fetchData()
-      .then( rows => {
-        const aggregator = new Aggregator()
-        const aggregatedRows = aggregator.process(rows)
-        setDataInitial(aggregatedRows)
-        setLoading(false)
-      })
-  }, [loading])
+  useEffect( () => {
+    if (current && ((current === 'worldometer' && !loadedW) || (current === 'hopkins' && !loadedH))) {
+      const dataSource = current === 'worldometer' ? new WorldometerScraper() : new HopkinsData()
+
+      dataSource.fetchData()
+        .then(rows => {
+          const aggregator = new Aggregator()
+          const aggregatedRows = aggregator.process(rows)
+          if (current === 'worldometer') {
+            setDataInitialW(aggregatedRows)
+            setLoadedW(true)
+          } else {
+            setDataInitialH(aggregatedRows)
+            setLoadedH(true)
+          }
+          setLoading(false)
+        })
+    } else {
+      setLoading(false)
+    }
+  }, [loading, current, loadedW, loadedH])
 
   return (
     <>
@@ -38,14 +66,15 @@ function App() {
         <meta name="description" content="A call to optimism - tracking covid19 recovery percentages"/>
       </Helmet>
 
-      <Router>
-        <Header/>
-        <Route exact path="/"
-               render={ () => <RecoveredTable
-                 loading={loading} dataInitial={dataInitial}/>}/>
-        <Route path="/about" component={About}/>
-        <Footer/>
-      </Router>
+      <Header/>
+      <Route path="(/|/hopkins)"
+             render={ () => <RecoveredTable
+               loading={loading} dataInitial={dataInitialH}/>}/>
+      <Route path="/worldometer"
+             render={ () => <RecoveredTable
+               loading={loading} dataInitial={dataInitialW}/>}/>
+      <Route path="/about" component={About}/>
+      <Footer/>
     </>
   )
 
