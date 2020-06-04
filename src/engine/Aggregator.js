@@ -11,6 +11,7 @@ class Aggregator {
         // if no active reported OR all not dead is considered active then apply heuristics
         if (!row.active || row.cases === row.deaths + row.active) {
           active = row.cases * activeRatio
+          country = `${country}*`
         }
         recovered = Math.trunc(row.cases - row.deaths - active)
       }

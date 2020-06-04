@@ -28,7 +28,7 @@ function About() {
           Of course, the accuracy of the metric very much depends on how each country monitors and reports data, especially the <em>Total Recovered</em> indicator.
           A lot of countries consider what they don't know as recovered. Others don't report anything for the recovered value; in this case
           recovered is computed as Total Cases - Total Deaths - Active Cases. Some countries don't report Active Cases; in this case an average value
-          of active cases is deduced based on the data from countries that report it.
+          of active cases is deduced based on the data from countries that report it. For this last case an <em>*</em> is added the country name.
           This page is not opinionated about what and how countries report.
           I am merely mention this as a caveat in assuming a high correlation between
           these numbers and the in the field situation.
