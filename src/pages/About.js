@@ -14,7 +14,7 @@ function About() {
         <h2 className="paragraph-heading">Covid Recovery Tracker uses data from Johns Hopkins / worldometer to show how close to healing we are</h2>
         <p>
           Covid19 is on almost everybody's mind right now and most of the data is pretty hard to analyze from an optimistic perspective
-          We use data from <a href="https://covid-api.com">Johns Hopkins</a> or
+          We use data from <a href="https://covid-api.com" className="external-link">Johns Hopkins</a> or
           <a href="https://www.worldometers.info/coronavirus" className="external-link">worldometer/covid</a>
           and sort it by a <em>percent recovered</em> metric. This particular one missing from other sources and you you may have found out,
           as I did, that total deaths only goes up and it is not very useful to track those unless you
