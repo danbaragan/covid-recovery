@@ -17,7 +17,8 @@ import Aggregator from "./engine/Aggregator"
 
 function App() {
   const location = useLocation()
-  const [ loading, setLoading ] = useState(true)
+  const [ loadingH, setLoadingH ] = useState(false)
+  const [ loadingW, setLoadingW ] = useState(false)
   const [ loadedH, setLoadedH ] = useState(false)
   const [ loadedW, setLoadedW ] = useState(false)
   const [ current, setCurrent ] = useState('')
@@ -28,18 +29,23 @@ function App() {
     const path = location.pathname
     if (path === '/' || path === '/hopkins') {
       setCurrent('hopkins')
-      setLoading(true)
     } else if (path === '/worldometer') {
       setCurrent('worldometer')
-      setLoading(true)
     } else {
       setCurrent('')
     }
   }, [location, current])
 
   useEffect( () => {
-    if (current && ((current === 'worldometer' && !loadedW) || (current === 'hopkins' && !loadedH))) {
-      const dataSource = current === 'worldometer' ? new WorldometerScraper() : new HopkinsData()
+    if ((current === 'worldometer' && !loadedW && !loadingW) || (current === 'hopkins' && !loadedH && !loadingH)) {
+      let dataSource = null
+      if (current === 'worldometer') {
+        dataSource =  new WorldometerScraper()
+        setLoadingW(true)
+      } else if (current === 'hopkins') {
+        dataSource =  new HopkinsData()
+        setLoadingH(true)
+      }
 
       dataSource.fetchData()
         .then(rows => {
@@ -48,16 +54,15 @@ function App() {
           if (current === 'worldometer') {
             setDataInitialW(aggregatedRows)
             setLoadedW(true)
-          } else {
+            setLoadingW(false)
+          } else if (current === 'hopkins') {
             setDataInitialH(aggregatedRows)
             setLoadedH(true)
+            setLoadingH(false)
           }
-          setLoading(false)
         })
-    } else {
-      setLoading(false)
     }
-  }, [loading, current, loadedW, loadedH])
+  }, [current, loadingW, loadingH, loadedW, loadedH])
 
   return (
     <>
@@ -69,10 +74,10 @@ function App() {
       <Header/>
       <Route path="(/|/hopkins)"
              render={ () => <RecoveredTable
-               loading={loading} dataInitial={dataInitialH}/>}/>
+               loading={loadingH} dataInitial={dataInitialH}/>}/>
       <Route path="/worldometer"
              render={ () => <RecoveredTable
-               loading={loading} dataInitial={dataInitialW}/>}/>
+               loading={loadingW} dataInitial={dataInitialW}/>}/>
       <Route path="/about" component={About}/>
       <Footer/>
     </>
