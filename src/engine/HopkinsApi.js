@@ -1,4 +1,4 @@
-import testData from './WorldometerScraper'
+import { testData } from './WorldometerScraper'
 
 class HopkinsData {
   constructor() {

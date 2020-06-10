@@ -4,16 +4,22 @@ import produce from 'immer'
 import { loadLocalStore, saveLocalStore } from '../Service'
 
 
-function RecoveredTable({ loading, dataInitial }) {
-  const savedRecoveredTreshold = useMemo( () => loadLocalStore('recoveredTreshold', 0), [])
-  const savedPercentTreshold = useMemo( () => loadLocalStore('percentTreshold', 0), [])
-  const savedCountries = useMemo( () => loadLocalStore('countries', []), [])
+function RecoveredTable({ loading, dataInitial, current }) {
+  const savedRecoveredTreshold = useMemo( () => loadLocalStore('recoveredTreshold', 0), [current])
+  const savedPercentTreshold = useMemo( () => loadLocalStore('percentTreshold', 0), [current])
+  const savedCountries = useMemo( () => loadLocalStore('countries', []), [current])
 
   const [ data, setData] = useState(dataInitial)
   const [ country, setCountry ] = useState('')
   const [ countries, setCountries ] = useState(savedCountries)
   const [ recoveredTreshold, setRecoveredTreshold ] = useState(savedRecoveredTreshold)
   const [ percentTreshold, setPercentTreshold ] = useState(savedPercentTreshold)
+
+  useEffect( () => {
+    setCountries(savedCountries)
+    setRecoveredTreshold(savedRecoveredTreshold)
+    setPercentTreshold(savedPercentTreshold)
+  }, [savedCountries, savedRecoveredTreshold, savedPercentTreshold])
 
   useEffect( () => {
     const filteredData = dataInitial.filter( e => {

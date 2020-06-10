@@ -74,10 +74,10 @@ function App() {
       <Header/>
       <Route path="(/|/hopkins)"
              render={ () => <RecoveredTable
-               loading={loadingH} dataInitial={dataInitialH}/>}/>
+               loading={loadingH} dataInitial={dataInitialH} current={current}/>}/>
       <Route path="/worldometer"
              render={ () => <RecoveredTable
-               loading={loadingW} dataInitial={dataInitialW}/>}/>
+               loading={loadingW} dataInitial={dataInitialW} current={current}/>}/>
       <Route path="/about" component={About}/>
       <Footer/>
     </>
