@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 function Footer() {
   return (
     <div className="md:sticky bottom-0 container layout-shell rounded-b-lg px-4 lg:px-12">
-      <div className="md:flex">
-        <table className="w-5/6 mx-auto text-center text-xs lg:text-sm font-mono" >
+      <div className="lg:flex">
+        <table className="w-2/3 mx-auto text-center text-xs lg:text-sm font-mono" >
           <tbody>
             <tr>
               <td className="text-right">SegWit:</td>
@@ -18,7 +18,7 @@ function Footer() {
             </tr>
           </tbody>
         </table>
-        <div className="flex my-4 md:my-0">
+        <div className="flex my-4 lg:my-0">
           <Link className="flex-1 link text-center text-lg font-bold" to="/">Hopkins</Link>
           <Link className="flex-1 link text-center text-lg font-bold" to="/worldometer">Worldometer</Link>
           <Link className="flex-1 link text-center text-lg font-bold" to="/about">About</Link>
