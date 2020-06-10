@@ -109,7 +109,3 @@ class WorldometerScraper {
 
 
 export default WorldometerScraper
-
-export {
-  testData,
-}

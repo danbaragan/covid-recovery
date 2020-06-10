@@ -1,4 +1,14 @@
-import { testData } from './WorldometerScraper'
+// todo: use proper test input data (json here, html for scaper)
+const testData = [
+  {country: 'Anguilla', recovered: 3, cases: 5, deaths: 1, active: 1},
+  {country: 'Anguilla', recovered: 3, cases: 5, deaths: 1, active: 1},
+  {country: 'Anguilla', recovered: 3, cases: 5, deaths: 1, active: 1},
+  {country: 'Saint Pierre Miquelon', recovered: 0, cases: 5, deaths: 1, active: 1},
+  {country: 'Iceland', recovered: 1791, cases: 5000, deaths: 100, active: 180},
+  {country: 'World', recovered: 10000, cases: 90000, deaths: 5000, active: 15000},
+  {country: 'Hong Kong', recovered: 1030, cases: 10555, deaths: 640, active: 1255},
+  {country: 'Gibraltar', recovered: 0, cases: 1569, deaths: 15, active: 0},
+]
 
 class HopkinsData {
   constructor() {

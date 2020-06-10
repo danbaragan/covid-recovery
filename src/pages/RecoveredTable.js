@@ -1,41 +1,29 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import produce from 'immer'
 
 import { loadLocalStore, saveLocalStore } from '../Service'
 
 
-function RecoveredTable({ loading, dataInitial, current }) {
-  const savedRecoveredTreshold = useMemo( () => loadLocalStore('recoveredTreshold', 0), [current])
-  const savedPercentTreshold = useMemo( () => loadLocalStore('percentTreshold', 0), [current])
-  const savedCountries = useMemo( () => loadLocalStore('countries', []), [current])
+function RecoveredTable({ loading, dataInitial }) {
+  // todo this does not do what I think it does. local store is hit hard even with this memo...
+  const savedRecoveredTreshold = useMemo( () => loadLocalStore('recoveredTreshold', 0), [])
+  const savedPercentTreshold = useMemo( () => loadLocalStore('percentTreshold', 0), [])
+  const savedCountries = useMemo( () => loadLocalStore('countries', []), [])
 
-  const [ data, setData] = useState(dataInitial)
   const [ country, setCountry ] = useState('')
   const [ countries, setCountries ] = useState(savedCountries)
   const [ recoveredTreshold, setRecoveredTreshold ] = useState(savedRecoveredTreshold)
   const [ percentTreshold, setPercentTreshold ] = useState(savedPercentTreshold)
 
-  useEffect( () => {
-    setCountries(savedCountries)
-    setRecoveredTreshold(savedRecoveredTreshold)
-    setPercentTreshold(savedPercentTreshold)
-  }, [savedCountries, savedRecoveredTreshold, savedPercentTreshold])
-
-  useEffect( () => {
-    const filteredData = dataInitial.filter( e => {
-      return (e.recovered >= recoveredTreshold
-        && e.percent >= percentTreshold
-        && (!country || e.country.toLowerCase().includes(country))
-      )
-    })
-    setData(filteredData)
-
-    return () => {
-      saveLocalStore('recoveredTreshold', recoveredTreshold)
-      saveLocalStore('percentTreshold', percentTreshold)
-      saveLocalStore('countries', countries)
-    }
-  }, [dataInitial, country, countries, recoveredTreshold, percentTreshold])
+  // We used to save on effect cleanup to local Store. This proved to be buggy when reusing this component for 2 data sources
+  // and the behaviour did not belong to the effect anyway. The effect was not even needed as a matter of fact...
+  // Just save to local store along with the state...
+  const data = dataInitial.filter( e => {
+    return (e.recovered >= recoveredTreshold
+      && e.percent >= percentTreshold
+      && (!country || e.country.toLowerCase().includes(country))
+    )
+  })
 
   const setNumericField = (e) => {
     let val = parseInt(e.target.value, 10)
@@ -44,8 +32,10 @@ function RecoveredTable({ loading, dataInitial, current }) {
     // todo: match state setter dynamically
     if (e.target.name === 'recovered') {
       setRecoveredTreshold(val)
+      saveLocalStore('recoveredTreshold', val)
     } else if (e.target.name === 'percent') {
       setPercentTreshold(val)
+      saveLocalStore('percentTreshold', val)
     }
   }
 
@@ -62,6 +52,7 @@ function RecoveredTable({ loading, dataInitial, current }) {
       })
     }
     setCountries(newCountries)
+    saveLocalStore('countries', newCountries)
   }
 
   return (
