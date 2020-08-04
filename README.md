@@ -4,7 +4,7 @@ Covid19 is on almost everybody's mind right now and most of the data is pretty h
 This is aimed to aggregate data from Johns Hopkins API or worldometer/covid and sort it by a 'percent recovered' metric. (one that is missing from worldometer)
 Of course, the accuracy of the metric very much depends on how each country monitors and reports data, especially the 'Total Recovered' indicator
 
-You can view a live demo of this app on [Netlify](covid-recovery.netlify.app)
+You can view a live demo of this app on [Netlify](https://covid-recovery.netlify.app)
 
 This project fetches data from [Johns Hopkins](https://covid-api.com) API
 Or it fetches and scrapes data from [Worldometer](https://www.worldometers.info/coronavirus/)
