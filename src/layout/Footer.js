@@ -6,7 +6,7 @@ function Footer() {
   return (
     <div className="md:sticky bottom-0 container layout-shell rounded-b-lg px-4 lg:px-12">
       <div className="lg:flex">
-        <table className="w-2/3 mx-auto text-center text-xs lg:text-sm font-mono" >
+        <table className="w-2/3 mx-auto text-center text-xs sm:text-sm font-mono" >
           <tbody>
             <tr>
               <td className="text-right">SegWit:</td>

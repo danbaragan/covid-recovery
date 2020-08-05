@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         sans: ["Trebuchet MS", "Palatino", "serif"],
       },
+      fontSize: {
+        'xs': '.65rem',
+      },
       colors: {
         lime: {
           '100': '#D1FF8E',
