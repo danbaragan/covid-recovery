@@ -72,7 +72,9 @@ function RecoveredTable({ loading, dataInitial }) {
                  value={percentTreshold} onChange={ setNumericField }/>
         </div>
         <hr className="mb-2"/>
-        {data.map( (e, i) => <RecoveredRow key={i} row={e} toggleRow={toggleRow(i)} countries={countries}/>)}
+        { loading ?
+          <LoadingMsg/> :
+          data.map( (e, i) => <RecoveredRow key={i} row={e} toggleRow={toggleRow(i)} countries={countries}/>)}
       </div>
     </div>
   )
@@ -91,4 +93,11 @@ function RecoveredRow( {row, toggleRow, countries} ) {
   )
 }
 
+function LoadingMsg() {
+  return (
+    <h4 className="text-center text-2xl font-bold my-12">
+      Loading...
+    </h4>
+  )
+}
 export default RecoveredTable;
