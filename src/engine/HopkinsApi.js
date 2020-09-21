@@ -80,21 +80,11 @@ class HopkinsData {
       deaths: 0,
       active: 0,
     }
-    if (data[0]["region"]["province"] === '') {
-      theData = {
-        cases: data[0]['confirmed'],
-        recovered: data[0]['recovered'],
-        deaths: data[0]['deaths'],
-        active: data[0]['active'],
-      }
-    } else {
-      // we don't have a total, walk regions
-      for (let d of data) {
-        theData.cases += d['confirmed']
-        theData.recovered += d['recovered']
-        theData.deaths += d['deaths']
-        theData.active += d['active']
-      }
+    for (let d of data) {
+      theData.cases += d['confirmed']
+      theData.recovered += d['recovered']
+      theData.deaths += d['deaths']
+      theData.active += d['active']
     }
     return theData
   }
