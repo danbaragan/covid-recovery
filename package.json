@@ -12,7 +12,12 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "autoprefixer": "^9.8.0",
+    "node-fetch": "^2.6.0",
+    "postcss-cli": "^7.1.1",
+    "postcss-nesting": "^7.0.1",
+    "tailwindcss": "^1.4.6"
   },
   "scripts": {
     "start": "yarn run watch:css & react-scripts start",
