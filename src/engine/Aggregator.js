@@ -16,7 +16,7 @@ class Aggregator {
         recovered = Math.trunc(row.cases - row.deaths - active)
       }
 
-      const percent = Math.trunc(recovered / row.cases * 100)
+      const percent = Math.trunc(recovered / (row.cases - row.deaths) * 100)
       recoveredData.push({country, recovered, percent})
     }
     return recoveredData.sort( (a, b) => b.percent - a.percent )

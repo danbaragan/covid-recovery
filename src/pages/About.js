@@ -22,7 +22,8 @@ function About() {
         </p>
         <p>
           On the other hand, having a big percent of recovered people should be an indicator of herd immunity (long lasting or not so much)
-          and an optimistic metric of the covid19 situation worldwide.
+          and an optimistic metric of the covid19 situation worldwide. The <em>percent recovered</em> is the fraction of <em>recovered</em> /
+          (<em>total cases</em> - <em>deaths</em>).
         </p>
         <p>
           Of course, the accuracy of the metric very much depends on how each country monitors and reports data, especially the <em>Total Recovered</em> indicator.
