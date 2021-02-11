@@ -6,17 +6,18 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "autoprefixer": "^10.2.4",
     "cheerio": "^1.0.0-rc.3",
-    "immer": "^6.0.9",
+    "immer": "^8.0.1",
+    "node-fetch": "^2.6.0",
+    "postcss": "^8.0.0",
+    "postcss-cli": "^8.3.1",
+    "postcss-nesting": "^7.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "autoprefixer": "^9.8.0",
-    "node-fetch": "^2.6.0",
-    "postcss-cli": "^7.1.1",
-    "postcss-nesting": "^7.0.1",
+    "react-scripts": "^4.0.2",
     "tailwindcss": "^1.4.6"
   },
   "scripts": {
@@ -42,11 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "autoprefixer": "^9.8.0",
-    "node-fetch": "^2.6.0",
-    "postcss-cli": "^7.1.1",
-    "postcss-nesting": "^7.0.1",
-    "tailwindcss": "^1.4.6"
-  }
+  "devDependencies": {}
 }
