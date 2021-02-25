@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, useLocation } from 'react-router-dom'
+import { Route, Redirect, useLocation } from 'react-router-dom'
 /* For the moment Helmet will issue "Using UNSAFE_componentWillMount in strict mode is not recommended" */
 import { Helmet } from 'react-helmet'
 
@@ -29,7 +29,7 @@ function App() {
     const path = location.pathname
     if (path === '/hopkins') {
       setCurrent('hopkins')
-    } else if (path === '/' || path === '/worldometer') {
+    } else if (path === '/worldometer') {
       setCurrent('worldometer')
     } else {
       setCurrent('')
@@ -72,7 +72,10 @@ function App() {
       </Helmet>
 
       <Header/>
-      <Route path="(/|/hopkins)"
+      <Route exact path="/">
+        <Redirect to="/worldometer"/>
+      </Route>
+      <Route path="/hopkins"
              render={ () => <RecoveredTable
                loading={loadingH} dataInitial={dataInitialH} />}/>
       <Route path="/worldometer"
