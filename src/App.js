@@ -27,9 +27,9 @@ function App() {
 
   useEffect( () => {
     const path = location.pathname
-    if (path === '/' || path === '/hopkins') {
+    if (path === '/hopkins') {
       setCurrent('hopkins')
-    } else if (path === '/worldometer') {
+    } else if (path === '/' || path === '/worldometer') {
       setCurrent('worldometer')
     } else {
       setCurrent('')
