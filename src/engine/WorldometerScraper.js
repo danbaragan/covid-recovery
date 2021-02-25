@@ -27,8 +27,7 @@ class WorldometerScraper {
     }
   }
 
-
-  fetchData(testing) {
+  async fetchData(testing) {
 
     if (testing) {
       return new Promise( (resolve) => {

@@ -3,7 +3,7 @@ import { Route, Redirect, useLocation } from 'react-router-dom'
 /* For the moment Helmet will issue "Using UNSAFE_componentWillMount in strict mode is not recommended" */
 import { Helmet } from 'react-helmet'
 
-import './assets/main.css'
+import './index.css'
 
 import Header from './layout/Header'
 import Footer from './layout/Footer'

@@ -61,7 +61,7 @@ function RecoveredTable({ loading, dataInitial }) {
         <div className="flex pt-4 font-semibold">
           <span className="text-flex">Country</span>
           <span className="numeric-flex">Recovered</span>
-          <span className="numeric-flex">Percent</span>
+          <span className="numeric-flex">%</span>
         </div>
         <div className="flex pb-2">
           <input type="text" name="country" className={`text-flex form-input ${loading ? 'loading' : ''}`}
@@ -84,7 +84,7 @@ function RecoveredRow( {row, toggleRow, countries} ) {
   const {country, recovered, percent } = row
   const selected = countries.includes(country)
   return (
-    <div className={`flex selectable-row ${ selected ? 'text-yellow-500 font-semibold' : ''} ${country === 'World' ? 'text-blue-300 font-semibold' : ''}`}
+    <div className={`flex selectable-row ${ selected ? 'text-yellow-400 font-semibold' : ''} ${country === 'World' ? 'text-blue-300 font-semibold' : ''}`}
          onClick={ toggleRow }>
       <span className="text-flex">{country}</span>
       <span className="numeric-flex">{recovered}</span>
