@@ -12,8 +12,10 @@ const testData = [
 
 class HopkinsData {
   constructor() {
+    const cors_proxy = process.env.REACT_APP_CORS_PROXY  // make sure you define this in production
     const data_path = process.env.REACT_APP_H_DATA_PATH || 'https://covid-api.com/api'
-    this.url = data_path
+    // Use a CORS proxy or a browser extension like Moesif CORS when developing
+    this.url = process.env.NODE_ENV === 'production' ? `${cors_proxy}/${data_path}` : data_path
   }
 
   async fetchData(testing) {
