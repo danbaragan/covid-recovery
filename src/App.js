@@ -79,8 +79,8 @@ function App() {
       <Header/>
       <Route exact path="/">
         <Redirect to={{
-          pathname: "/hopkins",
-          search: "?exclude-small=1"
+          pathname: "/worldometer",
+          // search: "?exclude-small=1"
         }}/>
       </Route>
       <Route path="/hopkins"
