@@ -22,11 +22,16 @@ function App() {
   const [ loadedH, setLoadedH ] = useState(false)
   const [ loadedW, setLoadedW ] = useState(false)
   const [ current, setCurrent ] = useState('')
+  const [ excludeSmall, setExcludeSmall ] = useState(null)
   const [ dataInitialH, setDataInitialH ] = useState([])
   const [ dataInitialW, setDataInitialW ] = useState([])
 
   useEffect( () => {
     const path = location.pathname
+    const searchParms = new URLSearchParams(location.search)
+    const excludeSmall = searchParms.get('exclude-small') === "1"
+    setExcludeSmall(excludeSmall)
+
     if (path === '/hopkins') {
       setCurrent('hopkins')
     } else if (path === '/worldometer') {
@@ -34,7 +39,7 @@ function App() {
     } else {
       setCurrent('')
     }
-  }, [location, current])
+  }, [location, current, excludeSmall])
 
   useEffect( () => {
     if ((current === 'worldometer' && !loadedW && !loadingW) || (current === 'hopkins' && !loadedH && !loadingH)) {
@@ -43,7 +48,7 @@ function App() {
         dataSource =  new WorldometerScraper()
         setLoadingW(true)
       } else if (current === 'hopkins') {
-        dataSource =  new HopkinsData()
+        dataSource =  new HopkinsData(excludeSmall)
         setLoadingH(true)
       }
 
@@ -62,7 +67,7 @@ function App() {
           }
         })
     }
-  }, [current, loadingW, loadingH, loadedW, loadedH])
+  }, [current, excludeSmall, loadingW, loadingH, loadedW, loadedH])
 
   return (
     <>
@@ -73,7 +78,10 @@ function App() {
 
       <Header/>
       <Route exact path="/">
-        <Redirect to="/worldometer"/>
+        <Redirect to={{
+          pathname: "/hopkins",
+          search: "?exclude-small=1"
+        }}/>
       </Route>
       <Route path="/hopkins"
              render={ () => <RecoveredTable

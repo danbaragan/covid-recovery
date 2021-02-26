@@ -11,11 +11,20 @@ const testData = [
 ]
 
 class HopkinsData {
-  constructor() {
+  static smallCountries = [
+    "TWN", "VNM", "KHM", "SMR", "ISL", "NZL", "MCO", "AND", "LIE", "BTN", "TGO", "VAT", "MDV", "BRN", "BFA", "MNG",
+    "GUY", "GIN", "ATG", "SYC", "TTO", "SWZ", "GAB", "MRT", "RWA", "LCA", "VCT", "SUR", "CAF", "COG", "GNQ", "BEN",
+    "LBR", "SOM", "TZA", "BHS", "BRB", "GMB", "MUS", "DJI", "TCD", "FJI", "NIC", "MDG", "HTI", "CPV", "NER", "PNG",
+    "TLS", "ERI", "DMA", "GRD", "SYR", "BLZ", "LAO", "NA-SHIP-DP", "GNB", "MLI", "KNA", "BDI", "SLE", "SSD", "STP",
+    "NA-SHIP-MSZ", "YEM", "COM", "TJK", "LSO", "SLB", "MHL", "VUT", "WSM"
+  ]
+
+  constructor(excludeSmall=false) {
     const cors_proxy = process.env.REACT_APP_CORS_PROXY  // make sure you define this in production
     const data_path = process.env.REACT_APP_H_DATA_PATH || 'https://covid-api.com/api'
     // Use a CORS proxy or a browser extension like Moesif CORS when developing
     this.url = process.env.NODE_ENV === 'production' ? `${cors_proxy}/${data_path}` : data_path
+    this.excludeSmall = excludeSmall
   }
 
   async fetchData(testing) {
@@ -29,7 +38,10 @@ class HopkinsData {
     // const countries = {'USA': "US"}
 
     let rows = []
-    const countryIsos = Object.keys(countries)
+    let countryIsos = Object.keys(countries)
+    if (this.excludeSmall) {
+      countryIsos = countryIsos.filter( e => ! HopkinsData.smallCountries.includes(e) )
+    }
     const calls = countryIsos.map( iso => this._fetchCountryData(iso))
     const countryDataAll = await Promise.all(calls)
 

@@ -96,7 +96,7 @@ function RecoveredRow( {row, toggleRow, countries} ) {
 function LoadingMsg() {
   return (
     <h4 className="text-center text-2xl font-bold my-12">
-      Loading...
+      waking up heroku &amp; fetching data ...
     </h4>
   )
 }

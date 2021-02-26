@@ -19,7 +19,10 @@ function Footer() {
           </tbody>
         </table>
         <div className="flex my-4 lg:my-0">
-          <Link className="flex-1 link text-center text-lg font-bold" to="/hopkins">Hopkins</Link>
+          <Link className="flex-1 link text-center text-lg font-bold" to={{
+            pathname: "/hopkins",
+            search: "?exclude-small=1"
+          }}>Hopkins</Link>
           <Link className="flex-1 link text-center text-lg font-bold" to="/worldometer">Worldometer</Link>
           <Link className="flex-1 link text-center text-lg font-bold" to="/about">About</Link>
         </div>
