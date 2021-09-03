@@ -9,12 +9,8 @@ function Footer() {
         <table className="w-2/3 mx-auto text-center text-xs sm:text-sm font-mono" >
           <tbody>
             <tr>
-              <td className="text-right">SegWit:</td>
-              <td className="lg:text-left">3BgsbUzdYVgB4oLyiyFDwY1oyhxUVj3iub</td>
-            </tr>
-            <tr>
               <td className="text-right">Bech32:</td>
-              <td className="lg:text-left">bc1q7djensd4msyslpg8glp4nx8u4nlyeh655qhxte</td>
+              <td className="lg:text-left">bc1qs969454yssygv58treu0thv3cqu2lmccpvsx8n</td>
             </tr>
           </tbody>
         </table>
